@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>ThunderClient clone</title>
+    <script src="index.js" defer></script>
+</head>
+
+<body>
+    <div class="left-panel">
+        <div class="search-box">
+            <div class="request-method">
+                <select name="request-method" id="request-method">
+                    <option value="get">Get</option>
+                    <option value="post">Post</option>
+                    <option value="put">Put</option>
+                    <option value="delete">Delete</option>
+                    <option value="patch">Patch</option>
+                    <option value="head">Head</option>
+                    <option value="options">Options</option>
+                    <option value="propfind">Propfind</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+            <div class="url-input">
+                <input type="text" name="url-input" id="url-input" placeholder="Enter Url">
+            </div>
+            <div class="send-button">
+                <input type="button" value="Send" id="send-button">
+            </div>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tab active-tab" onclick="changeActiveTab(0)">Query</div>
+            <div class="tab" onclick="changeActiveTab(1)">Headers</div>
+            <div class="tab" onclick="changeActiveTab(2)">Auth</div>
+            <div class="tab" onclick="changeActiveTab(3)">Body</div>
+            <div class="tab" onclick="changeActiveTab(4)">Tests</div>
+            <div class="tab" onclick="changeActiveTab(5)">Pre Run</div>
+        </div>
+
+        <div class="content-container">
+            <div class="query-container active-container">
+                <h1 class="container-title">Query Parameters</h1>
+                <div class="query-row">
+                    <input type="button" value="-" class="delete-row">
+                    <input type="text" name="quary-key-1" class="query-key-1">
+                    <input type="text" name="quary-value-1" class="query-value-1">
+                    <input type="button" value="+" class="add-row" onclick="insertQueryRow()">
+                </div>
+                <template id="query-input-template">
+                    <div class="query-row">
+                        <input type="button" value="-" class="delete-row">
+                        <input type="text" name="quary-key-1" class="query-key-1">
+                        <input type="text" name="quary-value-1" class="query-value-1">
+                        <input type="button" value="+" class="add-row" onclick="insertQueryRow()">
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+    <div class="right-panel"></div>
+</body>
+
+</html>

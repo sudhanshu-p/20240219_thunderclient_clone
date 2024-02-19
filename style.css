@@ -1,0 +1,149 @@
+:root {
+    --primary-background: #1e1e2e;
+    --accent-color: #cba6f7
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: var(--primary-background);
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-panel,
+.right-panel {
+    width: 50%;
+    height: 100%;
+}
+
+.left-panel {
+    background-color: var(--primary-background);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 2rem;
+    flex-direction: column;
+}
+
+.right-panel {
+    background-color: blue;
+}
+
+/* Styling the url input area */
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+}
+
+input,
+select {
+    border: none;
+    outline: none;
+    border: 1px solid gray;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    height: 100%;
+}
+
+.search-box input,
+.search-box select {
+    background-color: #1e1e2e;
+    color: white;
+    font-size: 16px;
+    padding: 0.9rem 10px;
+}
+
+.request-method {
+    border-radius: 6px 0 0 6px;
+    min-width: 20%;
+}
+
+#request-method {
+    min-width: 100%;
+}
+
+.url-input {
+    min-width: 60%;
+}
+
+#url-input {
+    min-width: 100%;
+}
+
+.send-button {
+    min-width: 20%;
+}
+
+#send-button {
+    min-width: 100%;
+    background-color: var(--accent-color);
+    color: var(--primary-background);
+    border-radius: 0 6px 6px 0;
+}
+
+/* Styling the tabs */
+.tabs-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding-top: 1.2rem;
+}
+
+.tab {
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.active-tab {
+    color: var(--accent-color);
+}
+
+.tab::after {
+    content: "";
+    width: 140%;
+    height: 2px;
+}
+
+.active-tab::after {
+    background-color: var(--accent-color);
+}
+
+/* Styling the query container */
+
+.content-container {
+    width: 100%;
+}
+
+.query-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.container-title {
+    font-weight: lighter;
+    padding-top: 1rem;
+}
+
+/* Styling each row of Input */
