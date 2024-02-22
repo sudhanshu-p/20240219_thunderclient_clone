@@ -1,8 +1,15 @@
 /** Takes in an index and sets that tab as the primary tab
+ * @param {String} side Left | Right side tab
  * @param {number} index
  */
-function changeActiveTab(index) {
-    const allTabs = document.querySelectorAll(".tab")
+function changeActiveTab(side, index) {
+    let allTabs
+    if (side === "left") {
+        allTabs = document.querySelectorAll('.left-tab')
+    }
+    else {
+        allTabs = document.querySelectorAll('.right-tab')
+    }
     for (let i = 0; i < allTabs.length; i++) {
         allTabs[i].classList.remove("active-tab")
         if (i === index) {
@@ -16,52 +23,97 @@ function changeActiveTab(index) {
 /** Takes in index and shows the content of that indexed tab */
 function showContent(index) {
     // TODO
+    const parentOfContentContainers = document.getElementById("content-container")
+
+    
+
 }
 
-// This reset makes sure every delete button only has 1 event listener, not 2.
-function resetDeleteButton() {
-    const deleteButtons = document.querySelectorAll('.delete-row')
 
-    for (const deleteButton of deleteButtons) {
-        deleteButton.removeEventListener('click', (event) => {
-            console.log(event.target.parentNode)
-            event.target.parentNode.remove()
-        })
-    }
+// Adding and Deleting Inputs based on template part JS
+function addRowNextTo() {
 
-    for (const deleteButton of deleteButtons) {
-        deleteButton.addEventListener('click', (event) => {
-            console.log(event.target.parentNode)
-            event.target.parentNode.remove()
-        })
-    }
 }
 
-function insertBeforeAQuery(event) {
-    const parentNode = event.target.parentNode.parentNode
-    const currentNode = event.target.parentNode
-    const childNodes = parentNode.children
-    const nodeIndex = Array.from(childNodes).indexOf()
+// const addListeners
+
+
+// FETCHING AND PARSING JS
+function isValidUrl(url) {
+    // const regex = /^(?:http?:\/\/)?(?:www\.)?[a-zA-Z0-9-\.]+\.[a-zA-Z]{2,}(?:\/\S*)?$/;
+    // return regex.test(url);
+    return true
 }
 
-function resetAddButton() {
-    const addButtons = document.querySelectorAll('.add-row')
+function parseObjectToReadableString(objectToParse, numOfTabs) {
+    const outputString = ""
+    let responseOutput = "{<br>"
+    const data = objectToParse
 
-    for (const addButton of addButtons) {
-        addButton.removeEventListener('click', (event) => {
-            // console.log(event.target.parentNode)
-            // console.log(event.target.parentNode.parentNode)
-            // Use insertOne to insert in parentNode.parentNode after parentNode
-            insertBeforeAQuery(event)
-        })
+    // Prinitng each key in individual line
+    Object.keys(data).forEach((key) => {
+        // If the value of this key is an array,
+        // We'll print each element of array in a different line too.
+        if (Array.isArray(data[key])) {
+            // &emsp; represents Tab
+            responseOutput += `&emsp;"${key}" : [<br>`
+            parseObjectToReadableString(data[key], numOfTabs + 2)
+            data[key].forEach((element) => {
+                responseOutput += `&emsp;&emsp;"${element}", <br>`
+            })
+            responseOutput += `&emsp;]<br>`
+        }
+        else if (data[key] === "[object Object]") {
+            console.log("Ai'ght Imma cry now")
+            responseOutput += parseObjectToReadableString(data[key], numOfTabs + 1)
+        }
+        else {
+            responseOutput += `&emsp;"${key}" : "${data[key]}",<br>`
+        }
+    })
+    responseOutput += "}"
+
+    return responseOutput
+}
+
+async function sendRequest() {
+    const searchBox = document.querySelector("#url-input")
+    const urlToBeSearched = searchBox.value
+    if (!isValidUrl(urlToBeSearched)) {
+        // Show some visual errors
+        console.log(urlToBeSearched)
+        return
     }
 
-    for (const addButton of addButtons) {
-        addButton.addEventListener('click', (event) => {
-            // console.log(event.target.parentNode)
-            // console.log(event.target.parentNode.parentNode)
-            // Use insertOne to insert in parentNode.parentNode after parentNode
-            insertBeforeAQuery(event)
-        })
+    // Sending the request
+    let headersList = {
+        "Accept": "*/*"
     }
+    let response = await fetch(urlToBeSearched, {
+        method: "GET",
+        headers: headersList
+    });
+
+    let data = await response.text();
+
+    // These are the elements on the RHS where data is to be added
+    const statusElementHTML = document.getElementById("status")
+    const sizeElementHTML = document.getElementById("size")
+    const timeElementHTML = document.getElementById("time")
+
+    const newStatus = response.status.toString() + (response.ok ? " OK" : "")
+
+    statusElementHTML.innerHTML = "Status: "
+    statusElementHTML.innerHTML += newStatus
+
+    // TODO: Size and Time data
+
+    // This is the container for the entire JSON response
+    const responseContainer = document.querySelector(".response-container")
+    responseContainer.innerHTML = ""
+
+    const responseOutput =
+        parseObjectToReadableString(JSON.parse(data), 1)
+
+    responseContainer.innerHTML = responseOutput
 }

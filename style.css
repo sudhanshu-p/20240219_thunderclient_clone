@@ -20,7 +20,7 @@ body {
 .left-panel,
 .right-panel {
     width: 50%;
-    height: 100%;
+    height: calc(100% - 2rem);
 }
 
 .left-panel {
@@ -28,12 +28,14 @@ body {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding-top: 2rem;
     flex-direction: column;
+    padding-top: 2rem;
 }
 
 .right-panel {
-    background-color: blue;
+    background-color: var(--primary-background);
+    padding: 0 2rem;
+    padding-top: 2rem;
 }
 
 /* Styling the url input area */
@@ -95,6 +97,7 @@ select:focus {
 }
 
 /* Styling the tabs */
+
 .tabs-container {
     display: flex;
     width: 100%;
@@ -127,16 +130,21 @@ select:focus {
     background-color: var(--accent-color);
 }
 
+/* Making the query containers invisible here, to be made visible on demand by js */
+.input-container {
+    display: none;
+}
+
 /* Styling the query container */
 
 .content-container {
     width: 100%;
 }
 
-.query-container {
+.active-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
     gap: 2rem;
 }
@@ -147,3 +155,44 @@ select:focus {
 }
 
 /* Styling each row of Input */
+
+.query-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+}
+
+.query-row>input {
+    background-color: var(--primary-background);
+    border: none;
+    color: white;
+    font-size: 16px;
+}
+
+input.query-key-1,
+input.query-value-1 {
+    width: 35%;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid white;
+}
+
+input.delete-row,
+input.add-row {
+    font-size: 26px;
+}
+
+/* Styling the top bar on the right */
+
+.right-top-bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 26px;
+    gap: 2rem;
+}
+
+.response-container {
+    font-size: 20px;
+}

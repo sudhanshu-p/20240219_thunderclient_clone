@@ -29,40 +29,78 @@
                 <input type="text" name="url-input" id="url-input" placeholder="Enter Url">
             </div>
             <div class="send-button">
-                <input type="button" value="Send" id="send-button">
+                <input type="button" value="Send" id="send-button" onclick="sendRequest()">
             </div>
         </div>
 
         <div class="tabs-container">
-            <div class="tab active-tab" onclick="changeActiveTab(0)">Query</div>
-            <div class="tab" onclick="changeActiveTab(1)">Headers</div>
-            <div class="tab" onclick="changeActiveTab(2)">Auth</div>
-            <div class="tab" onclick="changeActiveTab(3)">Body</div>
-            <div class="tab" onclick="changeActiveTab(4)">Tests</div>
-            <div class="tab" onclick="changeActiveTab(5)">Pre Run</div>
+            <div class="left-tab tab active-tab" onclick="changeActiveTab('left', 0)">Query</div>
+            <div class="left-tab tab" onclick="changeActiveTab('left', 1)">Headers</div>
+            <div class="left-tab tab" onclick="changeActiveTab('left', 2)">Auth</div>
+            <div class="left-tab tab" onclick="changeActiveTab('left', 3)">Body</div>
+            <div class="left-tab tab" onclick="changeActiveTab('left', 4)">Tests</div>
+            <div class="left-tab tab" onclick="changeActiveTab('left', 5)">Pre Run</div>
         </div>
 
-        <div class="content-container">
-            <div class="query-container active-container">
+        <div id="content-container">
+            <div class="input-container active-container">
                 <h1 class="container-title">Query Parameters</h1>
                 <div class="query-row">
                     <input type="button" value="-" class="delete-row">
-                    <input type="text" name="quary-key-1" class="query-key-1">
-                    <input type="text" name="quary-value-1" class="query-value-1">
-                    <input type="button" value="+" class="add-row" onclick="insertQueryRow()">
+                    <input type="text" name="quary-key-1" class="query-key-1" placeholder="parameter">
+                    <input type="text" name="quary-value-1" class="query-value-1" placeholder="value">
+                    <input type="button" value="+" class="add-row">
                 </div>
                 <template id="query-input-template">
                     <div class="query-row">
                         <input type="button" value="-" class="delete-row">
                         <input type="text" name="quary-key-1" class="query-key-1">
                         <input type="text" name="quary-value-1" class="query-value-1">
-                        <input type="button" value="+" class="add-row" onclick="insertQueryRow()">
+                        <input type="button" value="+" class="add-row">
                     </div>
                 </template>
             </div>
+            <div class="input-container"></div>
+            <div class="input-container"></div>
+            <div class="input-container">
+                <h1 class="container-title">Body Parameters</h1>
+                <div class="query-row">
+                    <input type="button" value="-" class="delete-row">
+                    <input type="text" name="quary-key-1" class="query-key-1" placeholder="parameter">
+                    <input type="text" name="quary-value-1" class="query-value-1" placeholder="value">
+                    <input type="button" value="+" class="add-row">
+                </div>
+                <template id="query-input-template">
+                    <div class="query-row">
+                        <input type="button" value="-" class="delete-row">
+                        <input type="text" name="quary-key-1" class="query-key-1">
+                        <input type="text" name="quary-value-1" class="query-value-1">
+                        <input type="button" value="+" class="add-row">
+                    </div>
+                </template>
+            </div>
+            <div class="input-container"></div>
+            <div class="input-container"></div>
         </div>
     </div>
-    <div class="right-panel"></div>
+    <div class="right-panel">
+        <div class="right-top-bar">
+            <div id="status">Status: </div>
+            <div id="size">Size: </div>
+            <div id="time">Time: </div>
+        </div>
+
+        <div class="tabs-container">
+            <div class="right-tab tab active-tab" onclick="changeActiveTab('right', 0)">Response</div>
+            <div class="right-tab tab" onclick="changeActiveTab('right', 1)">Headers</div>
+            <div class="right-tab tab" onclick="changeActiveTab('right', 2)">Cookies</div>
+            <div class="right-tab tab" onclick="changeActiveTab('right', 3)">Results</div>
+            <div class="right-tab tab" onclick="changeActiveTab('right', 4)">Docs</div>
+        </div>
+
+        <div class="response-container">
+        </div>
+    </div>
 </body>
 
 </html>
