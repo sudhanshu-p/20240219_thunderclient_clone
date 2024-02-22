@@ -45,17 +45,22 @@
         <div id="content-container">
             <div class="input-container active-container">
                 <h1 class="container-title">Query Parameters</h1>
-                <div class="query-row">
-                    <input type="button" value="-" class="delete-row">
-                    <input type="text" name="quary-key-1" class="query-key-1" placeholder="parameter">
-                    <input type="text" name="quary-value-1" class="query-value-1" placeholder="value">
-                    <input type="button" value="+" class="add-row">
+                <div class="queries-input-container">
+                    <div class="query-row">
+                        <input type="button" value="-" class="delete-row disabled">
+                        <input type="text" name="quary-key-1" class="query-key" placeholder="parameter"
+                            oninput="inputQuery()">
+                        <input type="text" name="quary-value-1" class="query-value" placeholder="value"
+                            oninput="inputQuery()">
+                        <input type="button" value="+" class="add-row">
+                    </div>
                 </div>
+
                 <template id="query-input-template">
                     <div class="query-row">
                         <input type="button" value="-" class="delete-row">
-                        <input type="text" name="quary-key-1" class="query-key-1">
-                        <input type="text" name="quary-value-1" class="query-value-1">
+                        <input type="text" name="quary-key-1" class="query-key" placeholder="parameter">
+                        <input type="text" name="quary-value-1" class="query-value" placeholder="value">
                         <input type="button" value="+" class="add-row">
                     </div>
                 </template>
@@ -73,8 +78,8 @@
                 <template id="query-input-template">
                     <div class="query-row">
                         <input type="button" value="-" class="delete-row">
-                        <input type="text" name="quary-key-1" class="query-key-1">
-                        <input type="text" name="quary-value-1" class="query-value-1">
+                        <input type="text" name="quary-key-1" class="query-key-1" placeholder="my">
+                        <input type="text" name="quary-value-1" class="query-value-1" placeholder="value">
                         <input type="button" value="+" class="add-row">
                     </div>
                 </template>

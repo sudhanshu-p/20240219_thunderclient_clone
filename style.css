@@ -27,7 +27,6 @@ body {
     background-color: var(--primary-background);
     display: flex;
     justify-content: flex-start;
-    align-items: center;
     flex-direction: column;
     padding-top: 2rem;
 }
@@ -45,6 +44,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 90%;
+    padding: 0 5%;
 }
 
 input,
@@ -137,16 +137,13 @@ select:focus {
 
 /* Styling the query container */
 
-.content-container {
-    width: 100%;
-}
-
 .active-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     gap: 2rem;
+    padding-left: 2rem;
 }
 
 .container-title {
@@ -162,13 +159,14 @@ select:focus {
     align-items: center;
     width: 100%;
     gap: 1rem;
+    padding-bottom: 1rem;
 }
 
 .query-row>input {
     background-color: var(--primary-background);
     border: none;
     color: white;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 input.query-key-1,
@@ -195,4 +193,24 @@ input.add-row {
 
 .response-container {
     font-size: 20px;
+}
+
+/* Responsive */
+@media (max-width: 990px) {
+    body {
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 100%;
+        height: 50%;
+    }
+
+}
+
+/* Utility classes */
+.disabled {
+    color: gray !important;
 }

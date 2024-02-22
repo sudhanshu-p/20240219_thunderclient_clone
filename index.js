@@ -25,18 +25,104 @@ function showContent(index) {
     // TODO
     const parentOfContentContainers = document.getElementById("content-container")
 
-    
+    const contentContainers = parentOfContentContainers.children
 
+    for (let i = 0; i < contentContainers.length; i++) {
+        contentContainers[i].classList.remove("active-container")
+        if (i === index) {
+            contentContainers[i].classList.add("active-container")
+        }
+    }
 }
 
 
 // Adding and Deleting Inputs based on template part JS
-function addRowNextTo() {
 
+const template = document.getElementById("query-input-template")
+
+function addRowNextTo(event) {
+    const selectedNode = event.target.parentNode
+    const parentNode = selectedNode.parentNode
+    console.log(parentNode)
+    const siblingNodes = parentNode.children
+    // console.log(siblingNodes)
+    let indexOfCurrNode;
+    for (indexOfCurrNode = 0; indexOfCurrNode < siblingNodes.length;
+        indexOfCurrNode++) {
+        if (siblingNodes[indexOfCurrNode] === selectedNode) {
+            console.log("AAAAAAA")
+            parentNode.insertBefore(template.content.cloneNode(true),
+                siblingNodes[indexOfCurrNode + 1])
+            break;
+        }
+    }
+
+    // Now we need to add event listener to this newly created node.
+    const newSiblingNodes = parentNode.children
+    // New node is at indexOfCurrNode + 1
+    newSiblingNodes[indexOfCurrNode + 1].querySelector('.add-row')
+        .addEventListener('click', (event) => {
+            addRowNextTo(event)
+        })
+
+    newSiblingNodes[indexOfCurrNode + 1].querySelector('.delete-row')
+        .addEventListener('click', (event) => {
+            deleteThisRow(event)
+        })
 }
 
-// const addListeners
+document.querySelector(".add-row").addEventListener('click', (event) => {
+    addRowNextTo(event)
+})
 
+function deleteThisRow(event) {
+    if (event.target.parentNode.parentNode.children.length === 1) {
+        // maybe display an error.
+    }
+
+    event.target.parentNode.parentNode.removeChild(event.target.parentNode)
+
+
+
+    // Edge case - when parent has only 1 child left, remove this event listener from all.
+}
+
+
+// Adding Params to the url
+
+function inputQuery() {
+    let queryRowParent = document.querySelector(".queries-input-container")
+
+    const urlInputValue = document.getElementById('url-input').value
+
+
+    // If the url is not given, do not process params
+    if (!urlInputValue) {
+        return
+    }
+
+    // Iterating over each input row
+    const queryRows = queryRowParent.children
+
+    let finalString = "?"
+
+    for (const queryRow of queryRows) {
+        const keyValue = queryRow.querySelector(".query-key").value
+        const valueValue = queryRow.querySelector(".query-value").value
+        finalString += `${keyValue}=${valueValue}`
+    }
+
+    if (urlInputValue.indexOf('?') === -1) {
+        document.getElementById('url-input').value =
+            urlInputValue + (finalString.length === 1 ? "" : finalString)
+            return
+    }
+
+    const finalUrl = urlInputValue.substring(0, urlInputValue.indexOf('?')) +
+        (finalString.length === 2 ? "" : finalString)
+
+    document.getElementById('url-input').value = finalUrl
+}
 
 // FETCHING AND PARSING JS
 function isValidUrl(url) {
@@ -85,6 +171,8 @@ async function sendRequest() {
         return
     }
 
+    const initial = performance.now()
+
     // Sending the request
     let headersList = {
         "Accept": "*/*"
@@ -96,6 +184,7 @@ async function sendRequest() {
 
     let data = await response.text();
 
+    const final = performance.now()
     // These are the elements on the RHS where data is to be added
     const statusElementHTML = document.getElementById("status")
     const sizeElementHTML = document.getElementById("size")
@@ -105,6 +194,8 @@ async function sendRequest() {
 
     statusElementHTML.innerHTML = "Status: "
     statusElementHTML.innerHTML += newStatus
+
+    timeElementHTML.innerHTML = final - initial
 
     // TODO: Size and Time data
 
@@ -117,3 +208,4 @@ async function sendRequest() {
 
     responseContainer.innerHTML = responseOutput
 }
+
